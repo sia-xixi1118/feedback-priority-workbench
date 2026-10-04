@@ -476,12 +476,6 @@ h2 { margin: 0 0 12px; font-size: 15px; color: var(--muted); font-weight: 600; }
   gap: 28px;
 }
 
-.priority-rule {
-  margin: 0;
-  color: var(--muted);
-  line-height: 1.6;
-}
-
 .priority-lane { display: grid; gap: 12px; }
 
 .priority-card {

@@ -1034,10 +1034,6 @@ function priorityCard(item, viewingOnPhone) {
 function renderPriority(viewingOnPhone) {
   const board = document.getElementById("panel-priority");
   board.replaceChildren();
-  const rule = document.createElement("p");
-  rule.className = "priority-rule";
-  rule.textContent = "需求列表里的分组都会出现在这里。名称里带「失败」或「无法」的，放在加急处理，留在这一档。原话里已经打不开、导不出、用不了的分组也放在加急处理；名称里没有这两个词时，觉得不该加急可以把卡片拖到产品升级。其余放在产品升级。加急处理和产品升级都按客户登记条数从多到少排。完成登记后，这条需求会从这里和需求列表消失，组里的客户反馈也不再出现。使用指导、配置额度和加购套餐不进入这里。空的保存常用筛选先不进入。规则演示，不是对外的发布日期。";
-  board.appendChild(rule);
   const { urgent, upgrades } = priorityBoard();
   if (!urgent.length && !upgrades.length) {
     const empty = document.createElement("p");
