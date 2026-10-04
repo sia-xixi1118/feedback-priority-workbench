@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>意见反馈 · 模拟演示</title>
+  <link rel="stylesheet" href="styles.css?v=20261004-11">
+</head>
+<body class="intake">
+  <main class="intake-wrap">
+    <p class="disclaimer">模拟演示，不代表企业实绩</p>
+    <h1>意见反馈</h1>
+    <form id="intake-form" class="register" novalidate>
+      <label>反馈主体<input id="field-customer" name="customer" type="text" required maxlength="40" autocomplete="off"></label>
+      <label>提交时间<input id="field-time" name="time" type="date" required></label>
+      <label>意见反馈<textarea id="field-need" name="need" required maxlength="500" rows="8"></textarea></label>
+      <p id="form-error" class="form-error" hidden></p>
+      <p id="intake-status" class="status" role="status"></p>
+      <button type="submit">提交</button>
+    </form>
+  </main>
+  <script>
+    const REGISTER_KEY = "feedback-merge-registered-v1";
+
+    function markDateFilled(input) {
+      input.classList.toggle("is-filled", Boolean(input.value));
+    }
+
+    function loadRegistered() {
+      try {
+        const saved = JSON.parse(localStorage.getItem(REGISTER_KEY) || "[]");
+        return Array.isArray(saved) ? saved : [];
+      } catch {
+        return [];
+      }
+    }
+
+    function nextId(rows) {
+      const numbers = rows.map((row) => Number(String(row.feedback_id).replace("N", "")) || 0);
+      const next = Math.max(0, ...numbers) + 1;
+      return `N${String(next).padStart(3, "0")}`;
+    }
+
+    const timeField = document.getElementById("field-time");
+    timeField.addEventListener("input", () => markDateFilled(timeField));
+    timeField.addEventListener("change", () => markDateFilled(timeField));
+
+    document.getElementById("intake-form").addEventListener("submit", (event) => {
+      event.preventDefault();
+      const customer = document.getElementById("field-customer").value.trim();
+      const time = timeField.value;
+      const need = document.getElementById("field-need").value.trim();
+      const error = document.getElementById("form-error");
+      const status = document.getElementById("intake-status");
+      if (!customer || !time || !need) {
+        error.hidden = false;
+        error.textContent = "反馈主体、提交时间和意见反馈都要填写。";
+        status.textContent = "";
+        return;
+      }
+      error.hidden = true;
+      const rows = loadRegistered();
+      rows.push({
+        feedback_id: nextId(rows),
+        account_id: "",
+        account_label: customer,
+        occurred_at: time,
+        source_kind: "client_feedback",
+        channel: "登记",
+        topic_key: "registered",
+        suggested_type: "待判断",
+        text: need,
+      });
+      localStorage.setItem(REGISTER_KEY, JSON.stringify(rows));
+      event.target.reset();
+      markDateFilled(timeField);
+      status.textContent = "已提交。";
+    });
+  </script>
+</body>
+</html>

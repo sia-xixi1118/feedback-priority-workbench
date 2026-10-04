@@ -1,0 +1,18 @@
+{
+  "schema_version": "1.0",
+  "data_mode": "synthetic",
+  "disclaimer": "模拟演示，不代表企业实绩。虚构 SaaS 报表后台，不表示任何真实产品缺少这些功能。",
+  "group": { "id": "saved_filters", "label": "保存常用筛选" },
+  "feedback": [
+    {"feedback_id": "S01", "account_id": "C001", "account_label": "客户甲", "occurred_at": "2026-09-03", "source_kind": "client_feedback", "channel": "咨询", "topic_key": "saved_filters", "suggested_type": "产品机会", "text": "模拟：周报每次都要重选部门和时间，能不能把这套筛选存下来？"},
+    {"feedback_id": "S02", "account_id": "C002", "account_label": "客户乙", "occurred_at": "2026-09-05", "source_kind": "client_feedback", "channel": "咨询", "topic_key": "saved_filters", "suggested_type": "产品机会", "text": "模拟：筛选条件能不能存成常用，下次打开报表直接用？"},
+    {"feedback_id": "S03", "account_id": "C005", "account_label": "客户05", "occurred_at": "2026-09-08", "source_kind": "client_feedback", "channel": "咨询", "topic_key": "saved_filters", "suggested_type": "产品机会", "text": "模拟：我们固定看华东和本月，希望一键套用，不用每次重筛。"},
+    {"feedback_id": "S04", "account_id": "C001", "account_label": "客户甲", "occurred_at": "2026-09-11", "source_kind": "client_feedback", "channel": "咨询", "topic_key": "saved_filters", "suggested_type": "产品机会", "text": "模拟：上次说的保存筛选，这周例会还是手点了一遍。"},
+    {"feedback_id": "S05", "account_id": "C009", "account_label": "客户09", "occurred_at": "2026-09-12", "source_kind": "client_feedback", "channel": "咨询", "topic_key": "saved_filters", "suggested_type": "产品机会", "text": "模拟：同事换班后还得重新勾选指标，筛选能保存给下一个人吗？"},
+    {"feedback_id": "S06", "account_id": "C006", "account_label": "客户06", "occurred_at": "2026-09-16", "source_kind": "client_feedback", "channel": "咨询", "topic_key": "saved_filters", "suggested_type": "产品机会", "text": "模拟：报表筛选每次都一样，希望存一个常用条件。"},
+    {"feedback_id": "S07", "account_id": "C012", "account_label": "客户12", "occurred_at": "2026-09-18", "source_kind": "client_feedback", "channel": "咨询", "topic_key": "saved_filters", "suggested_type": "产品机会", "text": "模拟：例会前总在重设筛选，能不能记住上次的部门和日期？"},
+    {"feedback_id": "S08", "account_id": "C008", "account_label": "客户08", "occurred_at": "2026-09-21", "source_kind": "client_feedback", "channel": "咨询", "topic_key": "saved_filters", "suggested_type": "产品机会", "text": "模拟：保存筛选有这个功能吗？我们三个主管用的是同一套条件。"},
+    {"feedback_id": "S09", "account_id": "C011", "account_label": "客户11", "occurred_at": "2026-09-23", "source_kind": "client_feedback", "channel": "咨询", "topic_key": "saved_filters", "suggested_type": "产品机会", "text": "模拟：再次确认，常用筛选能否保存，省得每周重选。"},
+    {"feedback_id": "S10", "account_id": "C002", "account_label": "客户乙", "occurred_at": "2026-09-25", "source_kind": "client_feedback", "channel": "咨询", "topic_key": "saved_filters", "suggested_type": "产品机会", "text": "模拟：保存筛选如果能做，就不用每次把部门重新勾一遍。"}
+  ]
+}

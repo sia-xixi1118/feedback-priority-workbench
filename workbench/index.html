@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>客户反馈与分类 · 模拟演示</title>
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <link rel="stylesheet" href="styles.css?v=20261005-2">
+</head>
+<body>
+  <aside class="nav">
+    <p class="disclaimer">模拟演示，不代表企业实绩</p>
+    <div class="tabs" role="tablist" aria-label="工作台">
+      <button id="tab-register" type="button" role="tab" aria-selected="true" aria-controls="panel-register">意见反馈</button>
+      <button id="tab-classify" type="button" role="tab" aria-selected="false" aria-controls="app">需求分类</button>
+      <button id="tab-list" type="button" role="tab" aria-selected="false" aria-controls="panel-list">需求列表</button>
+      <button id="tab-priority" type="button" role="tab" aria-selected="false" aria-controls="panel-priority">迭代优先级</button>
+      <button id="tab-board" type="button" role="tab" aria-selected="false" aria-controls="panel-board">需求看板</button>
+    </div>
+  </aside>
+  <div class="workspace">
+  <header class="top">
+    <div class="title-row">
+      <h1 id="page-title">意见反馈</h1>
+      <button id="delete-selected" type="button" hidden>删除</button>
+    </div>
+  </header>
+  <p id="phone-note" class="phone-note" hidden>当前是窄屏，只能查看。</p>
+  <p id="status" class="status" role="status"></p>
+  <section id="panel-register" class="panel" role="tabpanel">
+    <p class="intake-note">客户反馈表单：<a id="intake-link" href="intake.html">意见反馈</a></p>
+    <form id="register-form" class="register" novalidate>
+      <label>反馈主体<input id="field-customer" name="customer" type="text" required maxlength="40" autocomplete="off"></label>
+      <label>提交时间<input id="field-time" name="time" type="date" required></label>
+      <label>意见反馈<textarea id="field-need" name="need" required maxlength="500" rows="8"></textarea></label>
+      <p id="form-error" class="form-error" hidden></p>
+      <button type="submit">提交</button>
+    </form>
+  </section>
+  <main id="app" class="desk panel" role="tabpanel" aria-labelledby="tab-classify" hidden>
+    <section class="col queue" aria-labelledby="queue-title">
+      <div class="col-head">
+        <h2 id="queue-title">客户反馈</h2>
+        <button id="queue-toggle" type="button" aria-expanded="true" aria-controls="queue">收起</button>
+      </div>
+      <ol id="queue"></ol>
+    </section>
+    <section class="col quote" aria-labelledby="quote-title">
+      <h2 id="quote-title">需求分类</h2>
+      <article id="current"></article>
+    </section>
+    <section class="col choices" aria-labelledby="choice-title">
+      <h2 id="choice-title">需求列表</h2>
+      <div id="choices"></div>
+    </section>
+  </main>
+  <p id="empty" class="empty" hidden>这批还没判断的原话已经放完。可以撤销上一条。</p>
+  <section id="panel-list" class="panel list-board" role="tabpanel" aria-labelledby="tab-list" hidden></section>
+  <section id="panel-priority" class="panel priority-board" role="tabpanel" aria-labelledby="tab-priority" hidden></section>
+  <section id="panel-board" class="panel board" role="tabpanel" aria-labelledby="tab-board" hidden></section>
+  <script src="app.js?v=20261005-10"></script>
+  </div>
+</body>
+</html>

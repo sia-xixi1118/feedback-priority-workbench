@@ -1,0 +1,55 @@
+{
+  "data_mode": "synthetic",
+  "rule_version": "merge-rule-v3",
+  "decisions": [
+    {
+      "decision_id": "GROUP-SCHED",
+      "topic_key": "scheduled_report",
+      "confirmed_at": "2026-10-04 16:02",
+      "choice": "1",
+      "status": "confirmed_keep",
+      "statement": "定时发送报表跨客户保留为一组，需求上标出客户乙、客户05、客户08、客户09、客户11、客户12。不并入自选导出列。不改写 MERGE-01、MERGE-02、MERGE-03。",
+      "account_ids": ["C002", "C005", "C008", "C009", "C011", "C012"]
+    },
+    {
+      "decision_id": "GROUP-EXPORT-ERROR",
+      "topic_key": "export_error",
+      "confirmed_at": "2026-10-04 16:05",
+      "choice": "1",
+      "status": "confirmed_keep",
+      "statement": "导出失败单独保留为缺陷组，跨客户合并，标出客户丙、客户丁、客户10、客户06。不并入自选导出列，也不并入定时发送。不改写 MERGE-01、MERGE-02、MERGE-03、GROUP-SCHED。",
+      "account_ids": ["C003", "C004", "C006", "C010"],
+      "feedback_ids": ["F29", "F30", "F31", "F32", "F33", "F34"]
+    },
+    {
+      "decision_id": "RULE-CONFIG",
+      "topic_key": "quota_setting",
+      "confirmed_at": "2026-10-04 16:06",
+      "choice": "1",
+      "status": "excluded_from_product",
+      "statement": "配置问题不进入产品组。F44「账号里的导出额度剩余在哪看？」单独作为配置问题，先回复。不并入自选导出列，也不并入导出失败。同主题的额度查看与配置入口咨询一并留在配置问题。",
+      "example_feedback_id": "F44",
+      "case_sha256": "de8c021d6fa5b35d3009cfe95b679ea34ea4900825f4fd5b6b2af571760a73ad"
+    },
+    {
+      "decision_id": "GROUP-EXPORT-COLUMNS",
+      "topic_key": "export_columns",
+      "confirmed_at": "2026-10-04 16:11",
+      "choice": "1",
+      "status": "confirmed_keep",
+      "statement": "相似的自选导出列放进同一组，标出提出客户。范围包括已冻结的 F01、F02、F03、F05，以及扩写的 F07–F18。F04 使用指导和 F06 商务诉求不进入本组。",
+      "account_ids": ["C001", "C002", "C005", "C006", "C007", "C008", "C009", "C010", "C011", "C012"],
+      "feedback_ids": ["F01", "F02", "F03", "F05", "F07", "F08", "F09", "F10", "F11", "F12", "F13", "F14", "F15", "F16", "F17", "F18"]
+    },
+    {
+      "decision_id": "RULE-UNCLEAR",
+      "topic_key": "unclear",
+      "confirmed_at": "2026-10-04 16:12",
+      "choice": "1",
+      "status": "excluded_from_product",
+      "statement": "没说清的话先不放进产品组，等补充后再决定。F58 不进入自选导出列，也不进入导出失败。同为证据不足的条目一并单独搁着。",
+      "example_feedback_id": "F58",
+      "case_sha256": "d6b11f2f2399c0645f6ca503f4932918ead371a1cf129963b3a29d5bedf46062"
+    }
+  ]
+}
