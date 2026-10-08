@@ -63,7 +63,7 @@ const state = {
   selectedId: null,
   lastStatus: "",
   queueOpen: true,
-  tab: "register",
+  tab: "board",
   editor: null,
   editorError: "",
   focusEditor: false,
@@ -1188,6 +1188,27 @@ function finishGroup(groupId, completedAt, person) {
   render();
 }
 
+function summaryStrip(waiting, openCount, urgentCount, doneCount) {
+  const strip = document.createElement("section");
+  strip.className = "home-stats";
+  for (const [label, value] of [
+    ["待分类", waiting],
+    ["未完成", openCount],
+    ["加急处理", urgentCount],
+    ["已完成", doneCount],
+  ]) {
+    const card = document.createElement("article");
+    card.className = "home-stat";
+    const name = document.createElement("span");
+    name.textContent = label;
+    const number = document.createElement("strong");
+    number.textContent = String(value);
+    card.append(name, number);
+    strip.appendChild(card);
+  }
+  return strip;
+}
+
 function renderBoard() {
   const board = document.getElementById("panel-board");
   board.replaceChildren();
@@ -1210,7 +1231,7 @@ function renderBoard() {
     const table = document.createElement("table");
     table.className = "duration-table";
     const head = document.createElement("tr");
-    for (const label of ["需求", "形成日期", "已建立时长"]) {
+    for (const label of ["需求", "形成日期", "已建立时长", "登记条数", "所在档"]) {
       const cell = document.createElement("th");
       cell.textContent = label;
       head.appendChild(cell);
@@ -1220,15 +1241,25 @@ function renderBoard() {
       .map((item) => ({
         label: item.group.label,
         formedAt: formedAtOf(item.group, item.members),
+        count: item.count,
+        lane: item.blocksUse ? "加急处理" : "产品升级",
       }))
       .sort((a, b) => daysBetween(b.formedAt, today) - daysBetween(a.formedAt, today) || a.label.localeCompare(b.label, "zh"));
     for (const row of rows) {
       const line = document.createElement("tr");
-      for (const text of [row.label, row.formedAt, `已建立 ${daysBetween(row.formedAt, today)} 天`]) {
+      const cells = [
+        row.label,
+        row.formedAt,
+        `已建立 ${daysBetween(row.formedAt, today)} 天`,
+        `${row.count} 条`,
+        row.lane,
+      ];
+      cells.forEach((text, index) => {
         const cell = document.createElement("td");
         cell.textContent = text;
+        if (index === 4 && row.lane === "加急处理") cell.className = "is-urgent-cell";
         line.appendChild(cell);
-      }
+      });
       table.appendChild(line);
     }
     duration.appendChild(table);
@@ -1277,7 +1308,36 @@ function renderBoard() {
   const timelineTitle = document.createElement("h2");
   timelineTitle.textContent = "已完成需求";
   timeline.appendChild(timelineTitle);
-  const marks = done
+  const doneTable = document.createElement("table");
+  doneTable.className = "duration-table";
+  const doneHead = document.createElement("tr");
+  for (const label of ["需求", "完成时间", "完成人员", "提出客户"]) {
+    const cell = document.createElement("th");
+    cell.textContent = label;
+    doneHead.appendChild(cell);
+  }
+  doneTable.appendChild(doneHead);
+  const doneRows = [...done].sort((a, b) => b.completedAt.localeCompare(a.completedAt) || a.label.localeCompare(b.label, "zh"));
+  for (const item of doneRows) {
+    const line = document.createElement("tr");
+    const customers = Array.isArray(item.customers) && item.customers.length
+      ? item.customers.join("、")
+      : "还没有客户提出";
+    const values = [
+      item.simulated ? `${item.label}（模拟）` : item.label,
+      item.completedAt,
+      item.person,
+      customers,
+    ];
+    for (const text of values) {
+      const cell = document.createElement("td");
+      cell.textContent = text;
+      line.appendChild(cell);
+    }
+    doneTable.appendChild(line);
+  }
+  timeline.appendChild(doneTable);
+  const marks = doneRows
     .map((item) => {
       const customers = Array.isArray(item.customers) && item.customers.length
         ? item.customers.join("、")
@@ -1328,7 +1388,7 @@ function renderBoard() {
     chart.appendChild(row);
   }
   timeline.appendChild(chart);
-  board.append(duration, people, timeline);
+  board.append(summaryStrip(queueRows().length, openItems.length, urgent.length, done.length), duration, people, timeline);
 }
 
 function moveQuote(feedbackId, groupId) {

@@ -613,6 +613,46 @@ h2 { margin: 0 0 12px; font-size: 15px; color: var(--muted); font-weight: 600; }
 
 .board-block h2 { margin: 0; font-size: 22px; }
 
+.home-stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.home-stat {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 16px 18px;
+}
+
+.home-stat span {
+  display: block;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.home-stat strong {
+  display: block;
+  margin-top: 6px;
+  font-size: 36px;
+  font-weight: 650;
+  line-height: 1.1;
+}
+
+.duration-table th {
+  background: var(--accent-soft);
+}
+
+.duration-table th:first-child { border-radius: 10px 0 0 0; }
+
+.duration-table th:last-child { border-radius: 0 10px 0 0; }
+
+.is-urgent-cell {
+  color: #c23b2e;
+  font-weight: 650;
+}
+
 .board-note { margin: 0; color: var(--muted); line-height: 1.6; }
 
 .duration-table {
@@ -745,6 +785,7 @@ body[data-tab="board"] .phone-note { display: none !important; }
   .nav { flex-basis: 132px; width: 132px; padding: 16px 10px; }
   .workspace { padding: 16px 12px 32px; }
   .tabs button { padding: 10px 8px; font-size: 14px; }
+  .home-stats { grid-template-columns: 1fr 1fr; }
   .register { padding: 20px 16px; min-height: 0; }
   .desk { grid-template-columns: 1fr; }
   .quote-text { font-size: 22px; }
